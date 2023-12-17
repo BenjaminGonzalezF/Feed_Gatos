@@ -1,0 +1,43 @@
+version: '3.1'
+services:
+  backend:
+    build: .
+    container_name: backend
+    env_file: .env
+    environment:
+      - MONGO_USERNAME=$MONGO_USERNAME
+      - MONGO_PASSWORD=$MONGO_PASSWORD
+      - MONGO_HOSTNAME=$MONGO_HOSTNAME
+      - MONGO_PORT=$MONGO_PORT
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongo
+    networks:
+      - mynetwork
+    
+  mongo:
+    container_name: dbmongo
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: $MONGO_USERNAME
+      MONGO_INITDB_ROOT_PASSWORD: $MONGO_PASSWORD
+    ports:
+      - 27017:27017
+    networks:
+      - mynetwork
+
+  mongo-express:
+    container_name: mongo-express
+    image: mongo-express
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: $MONGO_USERNAME
+      ME_CONFIG_MONGODB_ADMINPASSWORD: $MONGO_PASSWORD
+      ME_CONFIG_MONGODB_SERVER: mongo
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:

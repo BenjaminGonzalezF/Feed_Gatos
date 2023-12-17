@@ -1,0 +1,51 @@
+body {
+  background-color: #eff9fdd4;
+}
+.me_gustas{
+  
+  display: flex;
+  position: sticky;
+  top: 0;
+  flex-direction: row-reverse;
+  align-items: flex-start;;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  padding-right: 7rem;
+
+}
+.guardados{
+  padding: 10px;
+  top: 0;
+  border-radius: 10px;
+  background-color: #26b697;
+  color: white; 
+  z-index: 999; 
+}
+.liked {
+    color: white;
+    background-color: #26b697;
+  }
+.feed{
+    background-color: #eff9fdd4; 
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+.publicacion{
+    display: flex;
+    justify-items: center;
+    flex-direction: column;
+    background-color: #e0eef5; 
+    margin: 10px;
+    padding: 20px;
+    border-radius: 10px;
+}
+h3 {
+    color: #333; 
+    font-size: 24px; 
+    font-weight: bold;
+    text-align: center;
+  }
