@@ -1,6 +1,6 @@
-//const apiKey = process.env.API_KEY;
+const apiKey = "live_hVU8F4bVnxQkW2scERfYXVckgIB34Z6E7Qx7JyZbcxAVt1nqrqkNz2nNXQ05Zq2v"
+const apiIP = "34.72.250.6"
 
-apiKey = "live_hVU8F4bVnxQkW2scERfYXVckgIB34Z6E7Qx7JyZbcxAVt1nqrqkNz2nNXQ05Zq2v"
 window.addEventListener("scroll", function() {
   if ((window.innerHeight + window.scrollY)  >= document.body.offsetHeight ) {
     getPhotos();
@@ -29,17 +29,27 @@ function getPhotos() {
 
           btn.addEventListener("click", function(event) {
             event.target.classList.toggle('liked');
-              console.log('Se ha dado me gusta a la foto');
-              const fotoUrl = event.target.parentNode.firstChild.src;
-              
-              fetch('http://localhost:3000/like', {
+            console.log('Se ha dado me gusta a la foto');
+            const fotoUrl = event.target.parentNode.firstChild.src;
+
+              fetch(`http://${apiIP}:3000/like`, { // Add the Access-Control-Allow-Origin header
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ url: fotoUrl }),
+              })
+              .then(response => {
+                if (response.ok) {
+                  console.log('Like sent successfully');
+                } else {
+                  console.log('Failed to send like');
+                }
+              })
+              .catch(error => {
+                console.log('Error occurred while sending like:', error);
               });
-          });
+            });
 
   
           const div = document.createElement("div");

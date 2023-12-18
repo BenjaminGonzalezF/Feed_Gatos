@@ -10,7 +10,13 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
 const MONGO_DB_URI = process.env.MONGO_DB_URI;
 const app = express();
 app.use(bodyParser.json());
+// Add the Access-Control-Allow-Origin header
 app.use(cors());
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
+
 let db;
 
 const options = {

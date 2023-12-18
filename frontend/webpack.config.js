@@ -2,13 +2,17 @@ const webpack = require('webpack');
 const dotenv = require('dotenv');
 
 module.exports = {
-  entry: './solicitud.js',
+ entry: {
+    solicitud: './solicitud.js',
+    obtener_img: './obtener_img.js'
+  },
   output: {
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
   },
   plugins: [
     new webpack.DefinePlugin({
       'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
+      'process.env.API_IP': JSON.stringify(process.env.API_IP),
     }),
   ],
 };

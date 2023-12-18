@@ -1,5 +1,19 @@
 version: '3.1'
 services:
+  apache:
+    image: marvambass/apache2-ssl-secure
+    container_name: apache
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ../frontend:/var/www/html
+      - ../frontend/key:/etc/apache2/external/
+    networks:
+      - mynetwork
+    depends_on:
+      - backend
+
   backend:
     build: .
     container_name: backend
@@ -9,13 +23,14 @@ services:
       - MONGO_PASSWORD=$MONGO_PASSWORD
       - MONGO_HOSTNAME=$MONGO_HOSTNAME
       - MONGO_PORT=$MONGO_PORT
+      - CORS_ALLOW_ORIGIN=*
     ports:
       - 3000:3000
     depends_on:
       - mongo
     networks:
       - mynetwork
-    
+
   mongo:
     container_name: dbmongo
     image: mongo
