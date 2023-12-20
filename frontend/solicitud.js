@@ -1,5 +1,5 @@
 const apiKey = "live_hVU8F4bVnxQkW2scERfYXVckgIB34Z6E7Qx7JyZbcxAVt1nqrqkNz2nNXQ05Zq2v"
-const apiIP = "34.72.250.6"
+const apiIP = "www.cat-feed.online"
 
 window.addEventListener("scroll", function() {
   if ((window.innerHeight + window.scrollY)  >= document.body.offsetHeight ) {
@@ -32,7 +32,7 @@ function getPhotos() {
             console.log('Se ha dado me gusta a la foto');
             const fotoUrl = event.target.parentNode.firstChild.src;
 
-              fetch(`http://${apiIP}:3000/like`, { // Add the Access-Control-Allow-Origin header
+              fetch(`https://${apiIP}:3000/like`, { // Add the Access-Control-Allow-Origin header
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',

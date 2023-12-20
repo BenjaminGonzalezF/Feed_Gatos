@@ -5,6 +5,8 @@ const cors = require('cors');
 const Like = require('./like.js');
 const path = require('path');
 const dotenv = require('dotenv');
+const https = require('https');
+const fs = require('fs');
 dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 const MONGO_DB_URI = process.env.MONGO_DB_URI;
@@ -19,18 +21,17 @@ app.use((req, res, next) => {
 
 let db;
 
-const options = {
+const optionsdb = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
 
-mongoose.connect(MONGO_DB_URI, options).then(function() {
+mongoose.connect(MONGO_DB_URI, optionsdb).then(function() {
   console.log('MongoDB is connected');
   db = mongoose.connection.db; // Assign the db variable with the MongoDB database object
 }).catch(function(err) {
   console.log(err);
 });
-
 
 app.post('/like', async (req, res) => {
   console.log('POST /like');
@@ -70,5 +71,10 @@ app.get('/likes', async (req, res) => {
   }
 });
 
-
-app.listen(3000, () => console.log('Server corriendo en el puerto 3000'));
+httpsOptions = {
+  key: fs.readFileSync('./keys/key.pem'),
+  cert: fs.readFileSync('./keys/cert.pem')
+};
+https.createServer(httpsOptions, app).listen(3000, () => {
+  console.log('Server running on port 3000 with HTTPS');
+});
