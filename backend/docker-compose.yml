@@ -23,7 +23,6 @@ services:
       - MONGO_PASSWORD=$MONGO_PASSWORD
       - MONGO_HOSTNAME=$MONGO_HOSTNAME
       - MONGO_PORT=$MONGO_PORT
-      - CORS_ALLOW_ORIGIN=*
     ports:
       - 3000:3000
     depends_on:
@@ -50,11 +49,22 @@ services:
     depends_on:
       - mongo
     environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: $MONGO_USERNAME
-      ME_CONFIG_MONGODB_ADMINPASSWORD: $MONGO_PASSWORD
       ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: false
+      ME_CONFIG_MONGODB_AUTH_USERNAME: $MONGO_USERNAME
+      ME_CONFIG_MONGODB_AUTH_PASSWORD: $MONGO_PASSWORD
+      ME_CONFIG_BASICAUTH_USERNAME: $MONGO_USERNAME
+      ME_CONFIG_BASICAUTH_PASSWORD: $MONGO_PASSWORD
+      ME_CONFIG_REQUEST_SIZE: 100kb
+      ME_CONFIG_SITE_SSL_ENABLED: 'true'
+      ME_CONFIG_SITE_SSL_CRT_PATH: /etc/ssl/certs/cert.pem
+      ME_CONFIG_SITE_SSL_KEY_PATH: /etc/ssl/certs/key.pem
+
+    volumes:
+      - ./keys/:/etc/ssl/certs/
+
     networks:
       - mynetwork
-
 networks:
   mynetwork:
+
