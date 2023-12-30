@@ -1,0 +1,8 @@
+#sudo nano /etc/systemd/system/cat-feed.service
+[Service]
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+WorkingDirectory=/home/benjam_gonz/app/backend
+ExecStart=/home/benjam_gonz/app/backend/docker-compose up -d
+ExecStop=/home/benjam_gonz/app/backend/docker-compose down
+Restart=always
+User=root

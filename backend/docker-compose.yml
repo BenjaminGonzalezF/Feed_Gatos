@@ -4,8 +4,8 @@ services:
     image: marvambass/apache2-ssl-secure
     container_name: apache
     ports:
-      - 80:80
-      - 443:443
+      - 80:443
+      - 444:443
     volumes:
       - ../frontend:/var/www/html
       - ../frontend/key:/etc/apache2/external/
@@ -65,6 +65,7 @@ services:
 
     networks:
       - mynetwork
+      
 networks:
   mynetwork:
 
